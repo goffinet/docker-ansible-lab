@@ -12,11 +12,11 @@ push:
 build_and_push: build push
 
 build_all:
-	IMAGE=ubuntu-1804-ansible-docker-host $(MAKE) build
-	IMAGE=ansible-tutorial $(MAKE) build
+	IMAGE=centos-8-ansible-docker-host $(MAKE) build
+	IMAGE=ansible-controller $(MAKE) build
 
 push_all:
-	IMAGE=ubuntu-1804-ansible-docker-host $(MAKE) push
-	IMAGE=ansible-tutorial $(MAKE) push
+	IMAGE=centos-8-ansible-docker-host $(MAKE) push
+	IMAGE=ansible-controller $(MAKE) push
 
 all: build_all push_all
