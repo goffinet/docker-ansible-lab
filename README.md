@@ -34,11 +34,11 @@ chmod +x startlab.sh
 
 ## Conteneurs
 
-`startlab.sh` démarre quatre conteneurs docker en coulisses. Un pour exécuter le tutoriel lui-même et trois en tant que nœuds qui se comportent exactement comme des machines (virtuelles ou physiques) dans le tutoriel.
+`startlab.sh` démarre quatre conteneurs docker et vous connecte à l'environnement du "controller".
 
-**ansible.controller** est un conteneur de tutoriel Alpine Linux dans lequel ansible est disponible. On trouve le [Dockerfile](https://github.com/goffinet/ansible-interactive-tutorial/blob/master/images/ansible-controller/Dockerfile) dans ce même repo.
+**ansible.controller** est un conteneur Alpine Linux dans lequel ansible est disponible. On trouve le [Dockerfile](https://github.com/goffinet/docker-ansible-lab/blob/master/images/ansible-controller/Dockerfile) dans ce même repo. C'est lui qui gère les trois autres noeuds.
 
-**host0.example.org**, **host1.example.org** et **host2.example.org** sont les conteneurs basés Centos 8 qui agissent comme des noeuds exploitables. Ces noeuds ont déjà été approvisionnés avec la clé ssh du conteneur **ansible.controller**. Ainsi, vous n'avez pas à vous occuper de l'installation des clés. Cette image est disponible sur [https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host](https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host) et le [Dockerfile](https://github.com/goffinet/ansible-interactive-tutorial/blob/master/images/centos-8-ansible-docker-host/Dockerfile) est dans ce repo.
+**host0.example.org**, **host1.example.org** et **host2.example.org** sont les conteneurs basés Centos 8 qui agissent comme des noeuds exploitables. Ces noeuds ont déjà été approvisionnés avec la clé ssh du conteneur **ansible.controller**. Ainsi, vous n'avez pas à vous occuper de l'installation des clés. Cette image est disponible sur [https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host](https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host) et le [Dockerfile](https://github.com/goffinet/docker-ansible-lab/blob/master/images/centos-8-ansible-docker-host/Dockerfile) est dans ce repo.
 
 ## Port Mapping
 
