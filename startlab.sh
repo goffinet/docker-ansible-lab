@@ -97,21 +97,12 @@ function remove () {
 
 function setupFiles() {
     local inventory="${WORKSPACE}/inventory"
-    local configuration="${WORKSPACE}/ansible.cfg"
     rm -f "${inventory}"
     echo "[nodes]" > "${inventory}"
     for ((i = 0; i < $NOF_HOSTS; i++)); do
         ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"node$i.example.org\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
         echo "node$i.example.org ansible_host=$ip ansible_user=root" >> "${inventory}"
     done
-    rm -f "${configuration}"
-    cat << EOF > "${configuration}"
-[defaults]
-inventory = ./inventory
-host_key_checking = False
-#private_key_file = /root/.ssh/id_rsa
-EOF
-
 }
 
 function init () {

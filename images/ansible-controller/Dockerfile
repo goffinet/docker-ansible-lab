@@ -1,8 +1,8 @@
 FROM alpine:latest
 
-RUN apk add --no-cache git build-base bash-completion bash util-linux openssh fping curl ansible
+RUN apk add --no-cache git build-base bash-completion bash util-linux openssh fping curl ansible autossh
 
-WORKDIR /root
+WORKDIR /root/workspace
 
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && mkdir /etc/ansible
 
