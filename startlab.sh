@@ -90,7 +90,7 @@ function runControllerContainer() {
 
 function remove () {
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-       killContainerIfExists host$i.example.org
+       killContainerIfExists node$i.example.org
     done
     removeNetworkIfExists ${NETWORK_NAME}
 }
@@ -100,16 +100,16 @@ function setupFiles() {
     local inventory="${WORKSPACE}/inventory"
     rm -f "${inventory}"
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-        #ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' host$i.example.org)
-        ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"host$i.example.org\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
-        echo "host$i.example.org ansible_host=$ip ansible_user=root" >> "${inventory}"
+        #ip=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' node$i.example.org)
+        ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"node$i.example.org\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
+        echo "node$i.example.org ansible_host=$ip ansible_user=root" >> "${inventory}"
     done
 }
 function init () {
     mkdir -p "${WORKSPACE}"
     doesNetworkExist "${NETWORK_NAME}" || { echo "creating network ${NETWORK_NAME}" && docker network create "${NETWORK_NAME}" >/dev/null; }
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-       isContainerRunning host$i.example.org || runHostContainer host$i.example.org ${DOCKER_HOST_IMAGE} $i
+       isContainerRunning node$i.example.org || runHostContainer node$i.example.org ${DOCKER_HOST_IMAGE} $i
     done
     setupFiles
     runControllerContainer

@@ -38,7 +38,7 @@ chmod +x startlab.sh
 
 **ansible.controller** est un conteneur Alpine Linux dans lequel ansible est disponible. On trouve le [Dockerfile](https://github.com/goffinet/docker-ansible-lab/blob/master/images/ansible-controller/Dockerfile) dans ce même repo. C'est lui qui gère les trois autres noeuds.
 
-**host0.example.org**, **host1.example.org** et **host2.example.org** sont les conteneurs basés Centos 8 qui agissent comme des noeuds exploitables. Ces noeuds ont déjà été approvisionnés avec la clé ssh du conteneur **ansible.controller**. Ainsi, vous n'avez pas à vous occuper de l'installation des clés. Cette image est disponible sur [https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host](https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host) et le [Dockerfile](https://github.com/goffinet/docker-ansible-lab/blob/master/images/centos-8-ansible-docker-host/Dockerfile) est dans ce repo.
+**node0.example.org**, **node1.example.org** et **node2.example.org** sont les conteneurs basés Centos 8 qui agissent comme des noeuds exploitables. Ces noeuds ont déjà été approvisionnés avec la clé ssh du conteneur **ansible.controller**. Ainsi, vous n'avez pas à vous occuper de l'installation des clés. Cette image est disponible sur [https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host](https://hub.docker.com/repository/docker/goffinet/centos-8-ansible-docker-host) et le [Dockerfile](https://github.com/goffinet/docker-ansible-lab/blob/master/images/centos-8-ansible-docker-host/Dockerfile) est dans ce repo.
 
 ## Port Mapping
 
@@ -46,12 +46,12 @@ Certains ports des conteneurs sont exposés comme ports hôtes comme suit :
 
 Conteneur|Port du conteneur|Port de l'hôte
 :---|:---:|:---:
-host0.example.org|80|`$HOSTPORT_BASE`  
-host1.example.org|80|`$HOSTPORT_BASE+1`
-host2.example.org|80|`$HOSTPORT_BASE+2`
-host0.example.org|8080|`$HOSTPORT_BASE+3`
-host1.example.org|30000|`$HOSTPORT_BASE+4`
-host2.example.org|443|`$HOSTPORT_BASE+5`
+node0.example.org|80|`$HOSTPORT_BASE`  
+node1.example.org|80|`$HOSTPORT_BASE+1`
+node2.example.org|80|`$HOSTPORT_BASE+2`
+node0.example.org|8080|`$HOSTPORT_BASE+3`
+node1.example.org|30000|`$HOSTPORT_BASE+4`
+node2.example.org|443|`$HOSTPORT_BASE+5`
 
 La variable `HOSTPORT_BASE` est fixée à la valeur `42726` par défaut et peut être changée en démarrant le lab comme suit :
 
