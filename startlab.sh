@@ -65,7 +65,7 @@ function runHostContainer() {
     if doesContainerExist ${name}; then
         docker start "${name}" > /dev/null
     else
-        docker run -d -p $port1:80 -p $port2:${EXTRA_PORTS[$3]} --net ${NETWORK_NAME} --name="${name}" "${image}" >/dev/null
+        docker run --privileged -d -p $port1:80 -p $port2:${EXTRA_PORTS[$3]} --net ${NETWORK_NAME} --name="${name}" "${image}" >/dev/null
     fi
     if [ $? -ne 0 ]; then
         echo "Could not start host container. Exiting!"
@@ -82,7 +82,7 @@ function runControllerContainer() {
     fi
     killContainerIfExists ansible.controller > /dev/null
     echo "starting container ansible.controller"
-    docker run -it -v "${WORKSPACE}":/root/workspace:Z --net ${NETWORK_NAME} \
+    docker run --privileged -it -v "${WORKSPACE}":/root/workspace:Z --net ${NETWORK_NAME} \
       --env HOSTPORT_BASE=$HOSTPORT_BASE \
       ${entrypoint} --name="ansible.controller" "${LAB_IMAGE}" ${args}
     return $?
@@ -90,7 +90,7 @@ function runControllerContainer() {
 
 function remove () {
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-       killContainerIfExists node$i.example.org
+       killContainerIfExists node$i
     done
     removeNetworkIfExists ${NETWORK_NAME}
 }
@@ -100,8 +100,8 @@ function setupFiles() {
     rm -f "${inventory}"
     echo "[nodes]" > "${inventory}"
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-        ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"node$i.example.org\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
-        echo "node$i.example.org ansible_host=$ip ansible_user=root" >> "${inventory}"
+        ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"node$i\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
+        echo "node$i ansible_host=$ip ansible_user=root" >> "${inventory}"
     done
 }
 
@@ -109,7 +109,7 @@ function init () {
     mkdir -p "${WORKSPACE}"
     doesNetworkExist "${NETWORK_NAME}" || { echo "creating network ${NETWORK_NAME}" && docker network create "${NETWORK_NAME}" >/dev/null; }
     for ((i = 0; i < $NOF_HOSTS; i++)); do
-       isContainerRunning node$i.example.org || runHostContainer node$i.example.org ${DOCKER_HOST_IMAGE} $i
+       isContainerRunning node$i || runHostContainer node$i ${DOCKER_HOST_IMAGE} $i
     done
     setupFiles
     runControllerContainer
