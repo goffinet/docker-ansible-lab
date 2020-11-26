@@ -1,5 +1,9 @@
 # docker-ansible-lab
 
+## Topologie
+
+![](https://lucid.app/publicSegments/view/9175d49c-c39c-4446-b245-b9e6829dc57a/image.png)
+
 ## 1. Prérequis
 
 Le seul prérequis est d'installer **Docker**, ici sous Linux[^1] :
