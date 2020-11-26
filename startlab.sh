@@ -103,6 +103,13 @@ function setupFiles() {
         ip=$(docker network inspect --format="{{range \$id, \$container := .Containers}}{{if eq \$container.Name \"node$i\"}}{{\$container.IPv4Address}} {{end}}{{end}}" ${NETWORK_NAME} | cut -d/ -f1)
         echo "node$i ansible_host=$ip ansible_user=root" >> "${inventory}"
     done
+    local config="${WORKSPACE}/ansible.cfg"
+    rm -f "${config}"
+    cat << EOF > ${config}
+[defaults]
+host_key_checking = False
+inventory = ./inventory
+EOF
 }
 
 function init () {
