@@ -14,7 +14,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
 [^1]: Docker Desktop est aussi disponible pour Windows [Install Docker Desktop on Windows](https://docs.docker.com/docker-for-windows/install/) et pour Mac [Install Docker Desktop on Mac](https://docs.docker.com/docker-for-mac/install/).
 
-Vous pouvez aussi passer par [http://play-with-docker.com](http://play-with-docker.com) (Cliquez sur "+ ADD NEW INSTANCE" et choisissez le repo[https://github.com/goffinet/docker-ansible-lab](https://github.com/goffinet/docker-ansible-lab)).
+Vous pouvez aussi passer par [http://play-with-docker.com](http://play-with-docker.com) (Cliquez sur "+ ADD NEW INSTANCE").
 
 ## 2. Se procurer le script
 
