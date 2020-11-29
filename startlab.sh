@@ -3,7 +3,7 @@ BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 NOF_HOSTS=3
 NETWORK_NAME="ansible.lab"
-WORKSPACE="${BASEDIR}/workspace"
+WORKSPACE="${BASEDIR}/lab"
 
 HOSTPORT_BASE=${HOSTPORT_BASE:-42726}
 # Extra ports per host to expose. Should contain $NOF_HOSTS variables
@@ -82,7 +82,7 @@ function runControllerContainer() {
     fi
     killContainerIfExists ansible.controller > /dev/null
     echo "starting container ansible.controller"
-    docker run --privileged -it -v "${WORKSPACE}":/root/workspace:Z --net ${NETWORK_NAME} \
+    docker run --privileged -it -v "${WORKSPACE}":/root/lab:Z --net ${NETWORK_NAME} \
       --env HOSTPORT_BASE=$HOSTPORT_BASE \
       ${entrypoint} --name="ansible.controller" "${LAB_IMAGE}" ${args}
     return $?

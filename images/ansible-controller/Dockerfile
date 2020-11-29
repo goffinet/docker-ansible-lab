@@ -2,7 +2,7 @@ FROM alpine:latest
 
 RUN apk add --no-cache git build-base bash-completion bash util-linux openssh fping curl ansible autossh
 
-WORKDIR /root/workspace
+WORKDIR /root/lab
 
 RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh && mkdir /etc/ansible
 

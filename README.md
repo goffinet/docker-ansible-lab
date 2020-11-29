@@ -29,7 +29,7 @@ chmod +x startlab.sh
 ./startlab.sh
 ```
 
-Et vous êtes directement dans le contrôleur dans le dossier `/root/workspace` avec un inventaire prêt à l'emploi.
+Et vous êtes directement dans le contrôleur dans le dossier `/root/lab` avec un inventaire prêt à l'emploi.
 
 ## 4. Nettoyage du lab
 
@@ -68,7 +68,7 @@ HOSTPORT_BASE=<some_other_value> ./startlab.sh
 
 ## 7. Dossier de l'espace de travail Workspace
 
-Un dossier `docker-ansible-lab/workspace` sur votre machine locale est monté en tant que `/root/workspace` dans le conteneur **ansible.controller**. Ainsi, vous pouvez utiliser votre éditeur favori sur votre machine locale pour éditer des fichiers.
+Un dossier `docker-ansible-lab/lab` sur votre machine locale est monté en tant que `/root/lab` dans le conteneur **ansible.controller**. Ainsi, vous pouvez utiliser votre éditeur favori sur votre machine locale pour éditer des fichiers.
 
 
 ## 8. Fabriquer les images Docker
